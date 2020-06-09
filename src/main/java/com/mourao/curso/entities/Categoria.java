@@ -1,12 +1,15 @@
 package com.mourao.curso.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="categoria")
@@ -16,9 +19,10 @@ public class Categoria implements Serializable{
 	private Long id;
 	private String nome;
 	
-	public Categoria() {
-		// TODO Auto-generated constructor stub
-	}
+	@Transient
+	private Set<Produto> produtos = new HashSet<>();
+	
+	public Categoria() {}
 
 	public Categoria(Long id, String nome) {
 		super();
@@ -42,6 +46,10 @@ public class Categoria implements Serializable{
 		this.nome = nome;
 	}
 
+	public Set<Produto> getProdutos() {
+		return produtos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
