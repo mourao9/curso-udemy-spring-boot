@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +15,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="user")
-public class User implements Serializable{
+@Table(name="usuario")
+public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="usuario_id")
 	private Long id;
 	private String nome;
 	private String email;
@@ -30,9 +32,9 @@ public class User implements Serializable{
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-	public User() {}
+	public Usuario() {}
 
-	public User(Long id, String nome, String email, String telefone, String password) {
+	public Usuario(Long id, String nome, String email, String telefone, String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -101,7 +103,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Usuario other = (Usuario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

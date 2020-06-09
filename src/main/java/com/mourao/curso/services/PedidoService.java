@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mourao.curso.entities.Pedido;
-import com.mourao.curso.entities.User;
+import com.mourao.curso.entities.Usuario;
 import com.mourao.curso.repositories.PedidoRepository;
 
 @Service

@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mourao.curso.entities.User;
+import com.mourao.curso.entities.Usuario;
 import com.mourao.curso.services.UserService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/usuarios")
+public class UsuarioResource {
 	
 	@Autowired
 	private UserService service;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> users = service.findAll();
+	public ResponseEntity<List<Usuario>> findAll(){
+		List<Usuario> users = service.findAll();
 		return ResponseEntity.ok().body(users);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-		User user = service.findById(id);
+	public ResponseEntity<Usuario> findById(@PathVariable Long id){
+		Usuario user = service.findById(id);
 		return ResponseEntity.ok().body(user);
 	}
 }

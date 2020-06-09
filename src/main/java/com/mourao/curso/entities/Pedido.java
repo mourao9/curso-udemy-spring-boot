@@ -31,11 +31,11 @@ public class Pedido implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private User cliente;
+	private Usuario cliente;
 	
 	public Pedido() {}
 
-	public Pedido(Long id, Instant momento, PedidoStatus pedidoStatus, User cliente) {
+	public Pedido(Long id, Instant momento, PedidoStatus pedidoStatus, Usuario cliente) {
 		super();
 		this.id = id;
 		this.momento = momento;
@@ -60,11 +60,11 @@ public class Pedido implements Serializable{
 		this.momento = momento;
 	}
 
-	public User getCliente() {
+	public Usuario getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(User cliente) {
+	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mourao.curso.entities.Pedido;
-import com.mourao.curso.entities.User;
+import com.mourao.curso.entities.Usuario;
 import com.mourao.curso.services.PedidoService;
 
 @RestController

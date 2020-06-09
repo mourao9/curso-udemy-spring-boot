@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mourao.curso.entities.User;
+import com.mourao.curso.entities.Usuario;
 import com.mourao.curso.repositories.UserRepository;
 
 @Service
@@ -15,12 +15,12 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public List<User> findAll(){
+	public List<Usuario> findAll(){
 		return repository.findAll();
 	}
 	
-	public User findById(Long id) {
-		Optional<User> obj = repository.findById(id);
+	public Usuario findById(Long id) {
+		Optional<Usuario> obj = repository.findById(id);
 		return obj.get();
 	}
 	
