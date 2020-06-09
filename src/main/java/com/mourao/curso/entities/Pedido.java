@@ -2,6 +2,8 @@ package com.mourao.curso.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,6 +35,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Usuario cliente;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItensPedido> itens = new HashSet<>();
 	
 	public Pedido() {}
 
@@ -75,6 +81,10 @@ public class Pedido implements Serializable{
 	public void setPedidoStatus(PedidoStatus pedidoStatus) {
 		if(pedidoStatus != null)
 			this.pedidoStatus = pedidoStatus.getCode();
+	}
+	
+	public Set<ItensPedido> getItens() {
+		return itens;
 	}
 
 	@Override
