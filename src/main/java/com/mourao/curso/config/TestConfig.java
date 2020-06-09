@@ -40,9 +40,9 @@ public class TestConfig implements CommandLineRunner {
 		Pedido p2 = new Pedido(null, Instant.parse("2020-06-08T19:53:07Z"), PedidoStatus.ENVIADO, u2);
 		Pedido p3 = new Pedido(null, Instant.parse("2020-06-08T19:53:07Z"), PedidoStatus.PAGO, u1);
 		
-		Categoria c1 = new Categoria(null, "Alimentos");
-		Categoria c2 = new Categoria(null, "Brinquedos");
-		Categoria c3 = new Categoria(null, "Eletrônicos");
+		Categoria c1 = new Categoria(null, "Eletrônicos");
+		Categoria c2 = new Categoria(null, "Livros");
+		Categoria c3 = new Categoria(null, "Computador");
 		
 		//Produto pt1 = new Produto(null, "Feijão", "feijão verde da roça", 4.5, null);
 		Produto pt1 = new Produto(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
@@ -56,5 +56,13 @@ public class TestConfig implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(c1, c2, c3));
 		produtoRepository.saveAll(Arrays.asList(pt1, pt2, pt3, pt4, pt5));
 		
+		pt1.getCategorias().add(c2);
+		pt2.getCategorias().add(c1);
+		pt2.getCategorias().add(c3);
+		pt3.getCategorias().add(c3);
+		pt4.getCategorias().add(c3);
+		pt5.getCategorias().add(c2);
+		
+		produtoRepository.saveAll(Arrays.asList(pt1, pt2, pt3, pt4, pt5));
 	}
 }

@@ -8,14 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name="produto")
-public class Produto implements Serializable{
+@Table(name = "produto")
+public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,14 +25,17 @@ public class Produto implements Serializable{
 	private String descricao;
 	private double preco;
 	private String imgUrl;
-	
-	//coleções
-	@Transient
-	private Set<Categoria> categorias = new HashSet<>();
-	
-	public Produto() {}
 
-	//não se coloca coleções em construtor, porque eles já são instanciados nas propriedades da classe
+	// coleções
+	@ManyToMany
+	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produtoId"), inverseJoinColumns = @JoinColumn(name = "categoriaId"))
+	private Set<Categoria> categorias = new HashSet<>();
+
+	public Produto() {
+	}
+
+	// não se coloca coleções em construtor, porque eles já são instanciados nas
+	// propriedades da classe
 	public Produto(Long id, String nome, String descricao, double preco, String imgUrl) {
 		super();
 		this.id = id;
@@ -79,7 +84,7 @@ public class Produto implements Serializable{
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public Set<Categoria> getCategorias() {
 		return categorias;
 	}
