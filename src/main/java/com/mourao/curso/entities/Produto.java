@@ -12,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "produto")
@@ -33,8 +36,10 @@ public class Produto implements Serializable {
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produtoId"), inverseJoinColumns = @JoinColumn(name = "categoriaId"))
 	private Set<Categoria> categorias = new HashSet<>();
 
-	public Produto() {
-	}
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItensPedido> itens = new HashSet<>();
+	
+	public Produto() {}
 
 	// não se coloca coleções em construtor, porque eles já são instanciados nas
 	// propriedades da classe
@@ -91,6 +96,15 @@ public class Produto implements Serializable {
 		return categorias;
 	}
 
+	@JsonIgnore
+	public Set<Pedido> getPedido(){
+		Set<Pedido> set = new HashSet<>();
+		for(ItensPedido x : itens) {
+			set.add(x.getPedido());
+		}
+		return set;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
