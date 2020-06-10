@@ -3,6 +3,8 @@ package com.mourao.curso.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,37 +17,41 @@ import com.mourao.curso.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private UserRepository repository;
-	
-	public List<Usuario> findAll(){
+
+	public List<Usuario> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Usuario findById(Long id) {
 		Optional<Usuario> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	public Usuario inserir(Usuario usuario) {
 		return repository.save(usuario);
 	}
-	
+
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-		}catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
-		}catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataBaseException(e.getMessage());
 		}
 	}
-	
+
 	public Usuario atualizar(Long id, Usuario usuario) {
-		Usuario user = repository.getOne(id);
-		atualizaDados(user, usuario);
-		return repository.save(user);
+		try {
+			Usuario user = repository.getOne(id);
+			atualizaDados(user, usuario);
+			return repository.save(user);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void atualizaDados(Usuario user, Usuario usuario) {
