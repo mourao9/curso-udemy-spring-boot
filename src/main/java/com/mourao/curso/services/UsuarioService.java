@@ -10,7 +10,7 @@ import com.mourao.curso.entities.Usuario;
 import com.mourao.curso.repositories.UserRepository;
 
 @Service
-public class UserService {
+public class UsuarioService {
 	
 	@Autowired
 	private UserRepository repository;
@@ -24,4 +24,7 @@ public class UserService {
 		return obj.get();
 	}
 	
+	public Usuario inserir(Usuario usuario) {
+		return repository.save(usuario);
+	}
 }
